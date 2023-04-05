@@ -1,0 +1,52 @@
+/*
+GLOBAL STYLES
+-------------------------------------------- */
+html {
+    overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    overflow-x: hidden; position: relative;
+    background-color: white;
+    -webkit-overflow-scrolling: touch;
+}
+
+.wrapper {
+    max-width: 1360px;
+    margin: 0 auto; padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.parallax {
+    @include visibility();
+}
+
+.loading-holder {
+    position: fixed; top: 0; left: 0; z-index: 9999;
+    width: 100%; height: 100%;
+    background: #ffffff;
+    @include visibility();
+    @include transition(500ms cubic-bezier(.49,.01,.27,1));
+    .spinner {
+        display: block; position: absolute; left: 50%; top: 50%;
+        width: 42px; height: 42px;
+        @include transform($x: -50%, $y: -50%);
+        @keyframes dual-ring {
+            0% {@include transform($r: 0deg); }
+            100% {@include transform($r: 360deg); } 
+        }
+        &:after {
+            content: " ";
+            display: block;
+            width: 38px; height: 38px;
+            border: 2px solid $color-primary; border-radius: 50%; border-color: $color-primary transparent $color-primary transparent;
+            animation: dual-ring 1.2s linear infinite; 
+        }        
+    }
+    .progress-bar {
+        display: none;
+    }
+    &.finished {
+        opacity: 0;
+    }
+}
